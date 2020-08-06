@@ -1,6 +1,7 @@
 # Scaled Unemployment County Map
-This Repository contains the scripts and files used to create a scaled map of county unemployment rates in the US. <br><\br>
-Note: This is currently a preliminary version of the readme, and is largely pasted verbatim from the actual code. A cleaned-up version will be out by 2020-08-06. 
+This Repository contains the scripts and files used to create a scaled map of county unemployment rates in the US. <br>
+Note: This is currently a preliminary version of the readme, and is largely pasted verbatim from the actual code. <br>
+A cleaned-up version will be out by 2020-08-06. 
 
 ![Final Result](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/unemployment_map9.png)
 
@@ -113,9 +114,6 @@ og_shp$state_and_county_FP <- str_c(
 
  ## Narrowing the Spatial Scope
 
- Getting Rid of the States and territories that aren't part of the contiguous 
- Continental United States of America. 
-
  Looking at the native shapefile, it's pretty obvious that I'm going to need 
  to tighten my focus geospatially. As is, the addition of territories like 
  the Virgin Islands, and American Samoa made the scale unwieldy, and the 
@@ -216,10 +214,9 @@ joinable2 <- retry_shp  %>%
 
 
 
- Simplify the geometry by 0.01 decimal degrees. 
-     This enables quicker rendering by lowering the geospatial precision.
-     At this scale, you won't notice the imprecision, but computations 
-     will finish 5 times quicker. 
+ # Simplify the Geometry 
+     I decided to simplify the geometry by 0.01 decimal degree, this enables quicker rendering by lowering the geospatial precision.
+     At this scale, you won't notice the imprecision, but computations will finish 5 times quicker. 
 ```r
 joinable2_simp = st_simplify(joinable2, preserveTopology = TRUE,
                              dTolerance = 0.01)
