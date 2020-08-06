@@ -1,10 +1,9 @@
 # Scaled Unemployment County Map
 This Repository contains the scripts and files used to create a scaled map of county unemployment rates in the US.
+Note: This is currently a preliminary version of the readme, and is largely pasted verbatim from the actual code. A cleaned-up version will be out by 2020-08-06. 
 
-Note: This is currently a preliminary version of the readme, and is largely pasted verbatim from the actual code. A cleaned-up version will be out by 2020-08-06
-Project: Severity of Unemployment Rate 
-Objective: Make an Awesome Map 
-Author: Aaron Fehir
+![Final Result](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/unemployment_map9.png)
+
 
 
 
