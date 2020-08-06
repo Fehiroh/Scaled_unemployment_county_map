@@ -1,24 +1,14 @@
-# Scaled_unemployment_county_map
-The code and files used to create a scaled map of county unemployment rates in the US
+# Scaled Unemployment County Map
+This Repository contains the scripts and files used to create a scaled map of county unemployment rates in the US.
 
-Note: This is currently a preliminary version of the readme, and is largely pasted verbatim from the actual code in 
+Note: This is currently a preliminary version of the readme, and is largely pasted verbatim from the actual code. A cleaned-up version will be out by 2020-08-06
 Project: Severity of Unemployment Rate 
 Objective: Make an Awesome Map 
 Author: Aaron Fehir
 
 
-Libraries 
 
-# installs (if necessary) and loads all requires packages. 
-if (!require("pacman")) install.packages("pacman");
-library(pacman)
-p_load(tidyverse, sf, tmap, spdplyr, 
-       viridisLite, rayshader, magick, cowplot, 
-       lintr)
-
-
-
-# The Basics #### 
+# The Basics
 
 # In order to make a geospatial visualization, one needs to have: 
   # 1) Geometry (points, lines, polygons) that represent the location, 
@@ -49,25 +39,32 @@ p_load(tidyverse, sf, tmap, spdplyr,
 # between nuance/grainular and readability while sticking to a static
 # visualization. This was achieved using feature engineering, deliberate graphics
 # choices, and using 2.5D visualizations to help the reader interpret, all of
-# which I'll cover in due course. Firstly, let's discuss 
-# data sources, importation, cleaning, and wrangling.
+ which I'll cover in due course. Firstly, let's discuss 
+data sources, importation, cleaning, and wrangling.
 
+# Libraries 
 
-
-
+```r 
+installs (if necessary) and loads all requires packages. 
+if (!require("pacman")) install.packages("pacman");
+library(pacman)
+p_load(tidyverse, sf, tmap, spdplyr, 
+       viridisLite, rayshader, magick, cowplot, 
+       lintr)
+```
 
 # Finding the Data:
-  # the shapefile was obtained from the Homeland Infrastructure Foundation-Level
-      # Data (HIFLD) at the following address:
-        # https://hifld-geoplatform.opendata.arcgis.com/datasets/us-county-boundaries, 
-    # and was unzipped using 7zip. 
-  # the csv was obtained from the United States Department of Agriculture 
-    # Economic Research Service at: 
- # https://www.ers.usda.gov/data-products/county-level-data-sets/download-data/
-    # specifically, it's entitled "Unemployment and median household income for 
-    # the U.S., States, and counties, 2000-19" and is downloadable as an xlsx. 
-    # the xlsx was converted to a csv manually using some excel hotkeys prior 
-    # to analysis
+
+## The Shapefile
+ The shapefile was obtained from the Homeland Infrastructure Foundation-Level
+ Data (HIFLD) at the following address:
+ https://hifld-geoplatform.opendata.arcgis.com/datasets/us-county-boundaries, 
+ and was unzipped using 7zip. 
+## The CSV
+ the csv was obtained from the United States Department of Agriculture 
+  Economic Research Service at: https://www.ers.usda.gov/data-products/county-level-data-sets/download-data/
+  specifically, it's entitled "Unemployment and median household income for the U.S., States, and counties, 2000-19" 
+  and is downloadable as an xlsx. Prior to any scripting, the xlsx was converted to a csv manually using some excel hotkeys. 
 
 
 # Importation #### 
