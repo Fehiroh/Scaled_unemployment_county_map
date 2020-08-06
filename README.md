@@ -41,18 +41,6 @@ choices, and using 2.5D visualizations to help the reader interpret, all of
  which I'll cover in due course. Firstly, let's discuss 
 data sources, importation, cleaning, and wrangling.
 
-# Libraries 
-
-The following code installs (if necessary) and loads all requires packages. 
-
-```r 
-
-if (!require("pacman")) install.packages("pacman");
-library(pacman)
-p_load(tidyverse, sf, tmap, spdplyr, 
-       viridisLite, rayshader, magick, cowplot, 
-       lintr)
-```
 
 # Finding the Data:
 
@@ -67,32 +55,42 @@ p_load(tidyverse, sf, tmap, spdplyr,
   specifically, it's entitled "Unemployment and median household income for the U.S., States, and counties, 2000-19" 
   and is downloadable as an xlsx. Prior to any scripting, the xlsx was converted to a csv manually using some excel hotkeys. 
 
+# Libraries 
 
+The following code installs (if necessary) and loads all requires packages. 
+
+```r 
+
+if (!require("pacman")) install.packages("pacman");
+library(pacman)
+p_load(tidyverse, sf, tmap, spdplyr, 
+       viridisLite, rayshader, magick, cowplot, 
+       lintr)
+```
 
 # Importation  
 
- Here's where one would put the path to the shared local directory 
- containing all of the data you've gathered. 
+```r
+ Here's where one would put the path to the directory with all of the files metioned above
 root_dir <- paste0("C:/Users/User/.../",
                    "county_level_chloreopleth/")
 
 loading in the Shape file 
-
 og_shp <- st_read(paste0(root_dir, "tl_2017_us_county/tl_2017_us_county.shp")
 ) %>%
   filter(STATEFP != 1, STATEFP != 15)
 
 
- Loading in the csv
+# Loading in the csv
 unemployment_csv <- read_csv(
   paste0(root_dir, 
          "original_data_unemployment.csv")
 )
-
+```
 
 # Preparing the Data 
 
- Getting a joinable feature between csv and shp. 
+ ## Finding or Creating the Join 
   Because this data is not from the exact same source, whether they 
   natively share a primary key is up to RNGesus. The importance of 
   this is that (without a shared primary key) the information from the csv  
@@ -113,7 +111,7 @@ og_shp$state_and_county_FP <- str_c(
 
 
 
- Narrowing the Spatial Scope
+ ## Narrowing the Spatial Scope
 
  Getting Rid of the States and territories that aren't part of the contiguous 
  Continental United States of America. 
@@ -147,7 +145,7 @@ og_shp$state_and_county_FP <- str_c(
 
 
 
- Getting the Right States  
+ ## Getting the Right States  
 
 ```r
  # this is used to form a filter argument, 
@@ -168,8 +166,9 @@ states <- states() %>%
 correct_stat_num <- states$STATEFP
  ```
 
- Reread in the shp_file given what we've learned.  
+## Reread and Clean the shp
 
+```r
 retry_shp <-  st_read(paste0(root_dir, "tl_2017_us_county.shp"))
 
 retry_shp <- retry_shp %>%
@@ -177,9 +176,10 @@ retry_shp <- retry_shp %>%
          !STATEFP %in% c("02", "15")
   ) %>% 
   mutate(state_and_county_FP = str_c(STATEFP, COUNTYFP))
+```
 
-# Join the Data 
-
+## Join the Data 
+```r
 joinable2 <- retry_shp  %>% 
    Join the CSV data in with the shapefile geometry, using the new features. 
   inner_join(unemployment_csv, 
@@ -196,8 +196,8 @@ joinable2 <- retry_shp  %>%
          scaled_unemployment_2009 =
            Unemployment_rate_2009/scaled_unemployment_2009
   )
-
- Explaining the Mutations Above  
+ ```
+ ### Explaining the Mutations Above  
  Map currently shows which are the worst counties for unemployment, 
  in relation to the entire country; this has a wide spread which 
  buries a lot of context. Additionally, we want to go with unemployment RATE, 
@@ -220,9 +220,10 @@ joinable2 <- retry_shp  %>%
      This enables quicker rendering by lowering the geospatial precision.
      At this scale, you won't notice the imprecision, but computations 
      will finish 5 times quicker. 
-
+```r
 joinable2_simp = st_simplify(joinable2, preserveTopology = TRUE,
                              dTolerance = 0.01)
+ ```
 
 
 # The Original Graph 
