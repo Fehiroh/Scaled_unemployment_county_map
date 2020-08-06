@@ -10,42 +10,44 @@ Author: Aaron Fehir
 
 # The Basics
 
-# In order to make a geospatial visualization, one needs to have: 
-  # 1) Geometry (points, lines, polygons) that represent the location, 
-  # size, and shape of the subject/subjects being visualized;
-  # 2) Observations of features you'd like to investigate (AKA data), and;
-  # 3) Some means of connecting the two, which can be either:
-    # i) Related geospatial data (usually latitude, and longitude) tied to each 
-        # observation; or, 
-    # ii ) A shared int/char primary key between sources. 
-# Luckily, When you're learning how to  deal with geospatial data, these three
-# things are almost always provided to you in one convenient package (the two
-# dominant formatting choice for data transfer are; 1) sending a zipped folder
-# with a shp file (geometry), a dbf file (data), and everything necessary for
-# the two to communicate with each other and other geodata, or  2) as a single
-# geodatabase [gdb]). While this may already seem overwhelming, this is
-# unfortunately the easiest this process will ever be. In the professional
-# world, people are less meticulous, and data is a cavalcade of messiness. 
-# Oftentimes there are some discepancies that require manipulation. 
-# (maybe the data is for counties but you're doing municipal or state-level 
-# analysis).These can be overcome with creative spatial reasoning and
-# decision-trees. What happens, however, when you need to use data and
-# geometries from two separate sources, or you don't have any geometries? 
+In order to make a geospatial visualization, one needs to have: 
+  1) Geometry (points, lines, polygons) that represent the location, 
+  size, and shape of the subject/subjects being visualized;
+  2) Observations of features you'd like to investigate (AKA data), and;
+  3) Some means of connecting the two, which can be either:
+    i) Related geospatial data (usually latitude, and longitude) tied to each 
+        observation; or, 
+    ii ) A shared int/char primary key between sources. 
+Luckily, When you're learning how to  deal with geospatial data, these three
+things are almost always provided to you in one convenient package (the two
+dominant formatting choice for data transfer are; 1) sending a zipped folder
+with a shp file (geometry), a dbf file (data), and everything necessary for
+the two to communicate with each other and other geodata, or  2) as a single
+geodatabase [gdb]). While this may already seem overwhelming, this is
+unfortunately the easiest this process will ever be. In the professional
+world, people are less meticulous, and data is a cavalcade of messiness. 
+Oftentimes there are some discepancies that require manipulation. 
+(maybe the data is for counties but you're doing municipal or state-level 
+analysis).These can be overcome with creative spatial reasoning and
+decision-trees. What happens, however, when you need to use data and
+geometries from two separate sources, or you don't have any geometries? 
 
-# For this exercise, I decided to eschew using tidycensus and tigris [two
-# packages that provide easily-joined socio-economic and geospatial
-# (respectively) data], and create a map by piecing together two disparate data
-# sources. Additionally, for the end-product, I wanted to achieve a balance
-# between nuance/grainular and readability while sticking to a static
-# visualization. This was achieved using feature engineering, deliberate graphics
-# choices, and using 2.5D visualizations to help the reader interpret, all of
+For this exercise, I decided to eschew using tidycensus and tigris [two
+packages that provide easily-joined socio-economic and geospatial
+(respectively) data], and create a map by piecing together two disparate data
+sources. Additionally, for the end-product, I wanted to achieve a balance
+between nuance/grainular and readability while sticking to a static
+visualization. This was achieved using feature engineering, deliberate graphics
+choices, and using 2.5D visualizations to help the reader interpret, all of
  which I'll cover in due course. Firstly, let's discuss 
 data sources, importation, cleaning, and wrangling.
 
 # Libraries 
 
+The following code installs (if necessary) and loads all requires packages. 
+
 ```r 
-installs (if necessary) and loads all requires packages. 
+
 if (!require("pacman")) install.packages("pacman");
 library(pacman)
 p_load(tidyverse, sf, tmap, spdplyr, 
@@ -69,8 +71,8 @@ p_load(tidyverse, sf, tmap, spdplyr,
 
 # Importation #### 
 
-# Here's where one would put the path to the shared local directory 
-# containing all of the data you've gathered. 
+Here's where one would put the path to the shared local directory 
+ containing all of the data you've gathered. 
 root_dir <- paste0("C:/Users/fehi7/Documents/Projects/",
                    "county_level_chloreopleth/")
 
