@@ -3,12 +3,31 @@ This Repository contains the scripts and files used to create a scaled map of co
 Note: This is currently a preliminary version of the readme, and is largely pasted verbatim from the actual code. <br>
 A cleaned-up version will be out by 2020-08-06. 
 
+The Abstract:
+By normalizing each county's unemployment (within the context of contemporary unemployment rate within the state it belongs to) one can visualize the disproportionate performance of counties within each state, as well as variations in the distribution of unemployment rates between states.
+
+The logic behind this is that the counties belonging the same state share at least some economic opportunities and policy, due to their inclusion within the overarching state-level government. By accounting for this, the visualization accentuates localized/granular variation in unemployment within each state, and allows for more equitable comparison at a national level.
+
+It’s worth noting that county-level inferences are strictly contextualized to the containing state. In other words, a low-severity purple county can actually have a better (lower) unemployment rate than an adjacent high-severity green/yellow county, so long as they occupy states that have varied distributions of unemployment rates. It's about relative performance; a millionaire living with billionaires is still the poorest man on the street.
+
+Tools Used:
+R
+
+(tidyverse, sf, tmap, spdplyr, viridisLite, rayshader, magick, cowplot, lintr)
+
+GIMP
+
+(Integration of plots)
+
+Excel (briefly)
+
+7zip
 ![Final Result](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/unemployment_map9.png)
 
 
 
 
-# The Basics
+# Background
 
 In order to make a geospatial visualization, one needs to have: 
   1) Geometry (points, lines, polygons) that represent the location, 
