@@ -55,13 +55,10 @@ data sources, importation, cleaning, and wrangling.
 # Tools Used:
   * R
        *(tidyverse, sf, tmap, spdplyr, viridisLite, rayshader, magick, cowplot, lintr)
-
   * GIMP
     *(Integration of plots)
-
-  *Excel (briefly)
-
-  *7zip
+  * Excel (briefly)
+  * 7Zip
 
 
 # Finding the Data:
@@ -236,8 +233,11 @@ joinable2 <- retry_shp  %>%
  of variation in employment rates within each state. Here are some illustrations that highlight the change:
  
 ![No Scaling](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original.png) 
+*No Scaling*
 ![State-Scaled](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original_scaled.png)
+*State-Scaled*
 ![Scaled and Continuous](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original_continuous.png)
+*Scaled and Continuous*
 
 
 
