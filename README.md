@@ -220,10 +220,10 @@ joinable2 <- retry_shp  %>%
  ```
  ### Explaining the Mutations Above  
  Without the mutation above, the choropleth shows which are the worst counties for unemployment, 
- in relation to the entire country ; this has a wide spread which 
+ in relation to the entire country; this has a wide spread which 
  buries a lot of context. Additionally, we want to go with unemployment RATE, 
  rather than unemployment count to make comparisons possible between counties 
- with wide variations in populace.  By normalizing each county's  unemployment within the  
+ with large differences in populace.  By normalizing each county's  unemployment within the  
  context of contemporary unemployment rate state it belongs to,
   we get to see if counties are performing poorly relative to it's state. 
  In other words, a low-severity purple county can actually have a better 
@@ -233,7 +233,13 @@ joinable2 <- retry_shp  %>%
  and policy at the state level.  By accounting for this, the visualization 
  accentuates localized/granular  variation in unemployment, 
  while also allowing the viewer to get a snap-shot of distribution 
- of variation in employment rates within each state. 
+ of variation in employment rates within each state. Here are some illustrations that highlight the change:
+ 
+![No Scaling](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original.png) 
+![State-Scaled](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original_scaled.png)
+![Scaled and Continuous](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original_continuous.png)
+
+
 
 
 
