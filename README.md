@@ -92,14 +92,13 @@ p_load(tidyverse, sf, tmap, spdplyr,
 # Importation  
 
 ```r
- Here's where one would put the path to the directory with all of the files metioned above
-root_dir <- paste0("C:/Users/User/.../",
+root_dir <- paste0("C:/Users/User/.../", # This would obviously need to be changed
                    "county_level_chloreopleth/")
 
-loading in the Shape file 
+# Loading in the shp
 og_shp <- st_read(paste0(root_dir, "tl_2017_us_county/tl_2017_us_county.shp")
 ) %>%
-  filter(STATEFP != 1, STATEFP != 15)
+  filter(STATEFP != 1, STATEFP != 15) #
 
 
 # Loading in the csv
@@ -199,15 +198,15 @@ retry_shp <- retry_shp %>%
 ## Join the Data 
 ```r
 joinable2 <- retry_shp  %>% 
-   Join the CSV data in with the shapefile geometry, using the new features. 
+  # Join the CSV data in with the shapefile geometry, using the new features. 
   inner_join(unemployment_csv, 
              by = c("state_and_county_FP" = "FIPStxt")) %>%
-   create variables to store the median unemployment of each state
+  # create variables to store the median unemployment of each state
   group_by(STATEFP) %>% 
   mutate(state_unemployment_2019 = mean(Unemployment_rate_2019), 
          state_unemployment_2009 = mean(Unemployment_rate_2009)) %>% 
   ungroup() %>% 
-   and get each county's unemployment rate ratio for the years
+  # and get each county's unemployment rate ratio for the years
    2009 and 2019 
   mutate(scaled_unemployment_2019 = 
            Unemployment_rate_2019/state_unemployment_2019, 
@@ -218,11 +217,11 @@ joinable2 <- retry_shp  %>%
  ### Explaining the Mutations Above  
  Without the mutation above, the choropleth shows which are the worst counties for unemployment, 
  in relation to the entire country; this has a wide spread which 
- buries a lot of context. Additionally, we want to go with unemployment RATE, 
+ buries a lot of context. Additionally, we want to go with unemployment *rate*, 
  rather than unemployment count to make comparisons possible between counties 
  with large differences in populace.  By normalizing each county's  unemployment within the  
- context of contemporary unemployment rate state it belongs to,
-  we get to see if counties are performing poorly relative to it's state. 
+ context of the contemporary unemployment rate within the state it belongs to,
+  we get to see if counties are performing poorly in a more equitable context. 
  In other words, a low-severity purple county can actually have a better 
  (lower) unemployment rate than an adjacent high-severity green/yellow county, 
  so long as they occupy different states. The logic behind this normalization 
@@ -233,14 +232,15 @@ joinable2 <- retry_shp  %>%
  of variation in employment rates within each state. Here are some illustrations that highlight the change:
  
 ![No Scaling](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original.png) 
-*No Scaling*
+
+*No Scaling* <br>
+
 ![State-Scaled](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original_scaled.png)
 *State-Scaled*
+
+<br>
 ![Scaled and Continuous](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original_continuous.png)
 *Scaled and Continuous*
-
-
-
 
 
  # Simplify the Geometry 
@@ -279,7 +279,7 @@ map_1
 ```
 
 
-# 3D version used for the bottom two sub-figures  
+# 3D Version 
 ```r
 ggmap1 <- ggplot(data = joinable2_simp) +
   geom_sf(aes(fill = scaled_unemployment_2019)) +
