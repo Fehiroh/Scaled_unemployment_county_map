@@ -233,12 +233,11 @@ joinable2 <- retry_shp  %>%
  
 ![No Scaling](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original.png) 
 
-*No Scaling* <br>
+*No Scaling* 
 
 ![State-Scaled](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original_scaled.png)
 *State-Scaled*
 
-<br>
 ![Scaled and Continuous](https://github.com/Fehiroh/Scaled_unemployment_county_map/blob/Fehiroh-patch-1/images/original_continuous.png)
 *Scaled and Continuous*
 
