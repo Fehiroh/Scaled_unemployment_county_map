@@ -1,7 +1,4 @@
 # Scaled Unemployment County Map
-This Repository contains the scripts and files used to create a scaled map of county unemployment rates in the US. <br>
-Note: This is currently a preliminary version of the readme, and is largely pasted verbatim from the actual code. <br>
-A cleaned-up version will be out by 2020-08-06. 
 
 # The Abstract:
 By normalizing each county's unemployment (within the context of contemporary unemployment rate within the state it belongs to) one can visualize the disproportionate performance of counties within each state, as well as variations in the distribution of unemployment rates between states.
