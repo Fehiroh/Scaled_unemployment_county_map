@@ -63,7 +63,9 @@ data sources, importation, cleaning, and wrangling.
 
 # Finding the Data:
 
-Part of the challenge of this excercise
+Part of the challenge of this excercise was to join in data that had not been designed to be joinable.
+A great option in these instances, and when looking for data / shapefiles in general is to look for
+either governmental or NGO data sources, which is what was done here. 
 
 ## The Shapefile
  The shapefile was obtained from the Homeland Infrastructure Foundation-Level
@@ -71,7 +73,7 @@ Part of the challenge of this excercise
  https://hifld-geoplatform.opendata.arcgis.com/datasets/us-county-boundaries, 
  and was unzipped using 7zip. 
 ## The CSV
- the csv was obtained from the United States Department of Agriculture 
+ The csv was obtained from the United States Department of Agriculture 
   Economic Research Service at: https://www.ers.usda.gov/data-products/county-level-data-sets/download-data/
   specifically, it's entitled "Unemployment and median household income for the U.S., States, and counties, 2000-19" 
   and is downloadable as an xlsx. Prior to any scripting, the xlsx was converted to a csv manually using some excel hotkeys. 
@@ -111,11 +113,12 @@ unemployment_csv <- read_csv(
 # Preparing the Data 
 
  ## Finding or Creating the Join 
-  Because this data is not from the exact same source, whether they 
-  natively share a primary key is up to RNGesus. The importance of 
-  this is that (without a shared primary key) the information from the csv  
-  has no way to be associated with the  shapefile's  geometries, and cannot be 
-  visualized  geospatially. 
+ Because this data is not from the exact same source, whether they 
+ natively share a primary key is up to RNGesus. The importance of 
+ this is that (without a shared primary key) the information from the csv  
+ has no way to be associated with the  shapefile's  geometries, and cannot be 
+ visualized  geospatially. 
+ 
  I did some quick investigation of the features in both files, and 
  discovered that there was no shared key. Fortunately, by perusing 
  through the data dictionies provided for each file, I deduced
@@ -243,8 +246,9 @@ joinable2 <- retry_shp  %>%
 
 
  # Simplify the Geometry 
-     I decided to simplify the geometry by 0.01 decimal degree, this enables quicker rendering by lowering the geospatial precision.
-     At this scale, you won't notice the imprecision, but computations will finish 5 times quicker. 
+ I decided to simplify the geometry by 0.01 decimal degree, this enables quicker rendering by lowering the geospatial precision.
+ At this scale, you won't notice the imprecision, but computations will finish at least 5 times quicker. 
+ 
 ```r
 joinable2_simp = st_simplify(joinable2, preserveTopology = TRUE,
                              dTolerance = 0.01)
@@ -252,6 +256,7 @@ joinable2_simp = st_simplify(joinable2, preserveTopology = TRUE,
 
 
 # The Original Graph 
+Here's the original completed graph:
 ```r
 map_1 <- tm_shape(joinable2_simp) +
   tm_fill(col = "scaled_unemployment_2019", 
@@ -279,6 +284,8 @@ map_1
 
 
 # 3D Version 
+Here is the code that produces the 3D model. While you can utilize snapshot functions to get specific angles, 
+a screenshot with the picture you'd like is quicker to set-up, which is why I went with that method.
 ```r
 ggmap1 <- ggplot(data = joinable2_simp) +
   geom_sf(aes(fill = scaled_unemployment_2019)) +
@@ -291,8 +298,8 @@ plot_gg(ggmap1, multicore = TRUE, raytrace = TRUE, width = 7, height = 4,
 ```
 
 # The Final Image 
-plots of ggmap1, and map1 were exported and reopened in GIMP, where 
- further editing occurred. If similar maps were required in bulk, this would 
- have been automated (probably using magick), but as a one-off that wasn't 
- a sensical course of action. 
+Plots of ggmap1, and map1 were exported and reopened in GIMP, where 
+further editing occurred. If similar maps were required in bulk, this would 
+have been automated (probably using magick), but as a one-off that wasn't 
+a sensical course of action. 
 
