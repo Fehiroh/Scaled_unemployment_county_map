@@ -22,6 +22,7 @@ in order to make a geospatial visualization, one needs to have:
   size, and shape of the subject/subjects being visualized;
   2) Observations of features you'd like to investigate (AKA data), and;
   3) Some means of connecting the two, which can be either:
+   
     *   Related geospatial data (usually latitude, and longitude) tied to each 
         observation; or, 
     *  A shared int/char primary key between sources. 
